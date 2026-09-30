@@ -1,0 +1,526 @@
+/* ==========================================================
+   ОСНОВЫ CSS — ПРОСТЫЕ ЭЛЕМЕНТЫ САЙТА
+   Файл-шпаргалка. Каждый блок подписан комментарием.
+   Комментарий в CSS всего один вид - такой блок.
+   Внутри него нельзя писать ещё один /* ... */, поэтому избегаем такой записи.
+   ========================================================== */
+
+
+/* ==========================================================
+   1. ПЕРЕМЕННЫЕ (:root)
+   Значения, которые используются много раз. Их можно менять
+   в одном месте — и цвет поменяется сразу везде.
+   Обращение к переменной: var(--color-main)
+   ========================================================== */
+:root {
+    --color-text: #222222;        /* основной текст */
+    --color-muted: #888888;       /* приглушённый текст */
+    --color-main: #2f6fed;        /* акцентный синий */
+    --color-bg: #ffffff;          /* фон страницы */
+    --color-block: #f5f6f8;       /* фон блоков */
+
+    --width-page: 900px;          /* максимальная ширина страницы */
+    --gap: 20px;                  /* универсальный отступ */
+}
+
+
+/* ==========================================================
+   2. СБРОС (нормализация)
+   Убираем стандартные отступы, которые браузер добавляет сам,
+   и считаем размеры по границе (box-sizing).
+   ========================================================== */
+
+/* * — универсальный селектор: подходит всем элементам */
+* {
+    margin: 0;            /* убираем внешние отступы у всех */
+    padding: 0;           /* убираем внутренние отступы у всех */
+}
+
+/* box-sizing: border-box — padding и border входят в width/height,
+   а не добавляются к ним сверху. Без этого все размеры «плавают». */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;  /* шрифт */
+    font-size: 16px;                              /* базовый размер 16px */
+    line-height: 1.6;                             /* интерлиньяж — 1.6 удобно читать */
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+
+
+/* ==========================================================
+   3. ШАПКА САЙТА
+   ========================================================== */
+.header {
+    /* Мягкий градиент сверху вниз */
+    background: linear-gradient(180deg, #2f6fed, #1d4ed8);
+    color: #ffffff;
+
+    /* Отступы внутри шапки */
+    padding: 40px 20px;
+
+    /* Текст по центру */
+    text-align: center;
+}
+
+.header__title {
+    font-size: 40px;         /* размер заголовка */
+    margin-bottom: 10px;     /* отступ снизу */
+}
+
+.header__text {
+    font-size: 18px;
+
+    /* Прозрачность элемента. 1 = полностью видно, 0 = не видно */
+    opacity: 0.85;
+}
+
+
+/* ==========================================================
+   4. НАВИГАЦИЯ
+   ========================================================== */
+.nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+
+    /* Чтобы блок был по центру и не шире --width-page */
+    max-width: var(--width-page);
+    margin: 0 auto;
+}
+
+/* Список убираем маркеры и отступы (через сброс выше они уже 0) */
+.nav__list {
+    list-style: none;
+
+    /* display: flex — кладём пункты в один ряд */
+    display: flex;
+
+    /* justify-content — распределение по главной оси (горизонталь) */
+    justify-content: center;
+
+    /* flex-wrap: wrap — если не влезают, переносятся на новую строку */
+    flex-wrap: wrap;
+}
+
+.nav__item + .nav__item {
+    /* Соседний селектор "+" — отступ между соседними пунктами.
+       Работает только для второго и следующих элементов. */
+    border-left: 1px solid #dddddd;
+}
+
+.nav__link {
+    display: block;             /* чтобы на весь блок пункта можно было кликнуть */
+    padding: 14px 20px;
+    color: var(--color-text);
+    text-decoration: none;     /* убрать подчёркивание ссылки */
+    transition: background-color .2s, color .2s;
+}
+
+/* Псевдокласс :hover — когда на элемент наведён курсор */
+.nav__link:hover {
+    background-color: var(--color-main);
+    color: #ffffff;
+}
+
+
+/* ==========================================================
+   5. ОСНОВНОЙ КОНТЕНТ
+   max-width + margin auto = блок по центру страницы
+   ========================================================== */
+.main {
+    max-width: var(--width-page);
+    margin: 0 auto;            /* auto по горизонтали = отступ слева и справа поровну */
+    padding: 30px 20px;
+}
+
+.block {
+    background-color: var(--color-block);
+    border: 1px solid #e2e5ea;
+
+    /* border-radius — скругление углов */
+    border-radius: 10px;
+
+    padding: 25px;
+
+    /* margin-bottom — отступ до следующего блока */
+    margin-bottom: var(--gap);
+}
+
+.block__title {
+    font-size: 26px;
+    margin-bottom: 15px;
+
+    /* Цвет левой полоски у заголовка */
+    border-left: 5px solid var(--color-main);
+    padding-left: 12px;
+}
+
+
+/* ==========================================================
+   6. ТЕКСТ
+   ========================================================== */
+
+/* Все p внутри .block получают отступ снизу */
+.block p {
+    margin-bottom: 12px;
+}
+
+.block p:last-child {
+    /*:last-child — последний элемент. Убираем лишний отступ снизу */
+    margin-bottom: 0;
+}
+
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+.text-big    { font-size: 24px; font-weight: bold; }
+.text-upper  { text-transform: uppercase; }
+.text-under  { text-decoration: underline; }
+
+
+/* ==========================================================
+   7. БЛОЧНАЯ МОДЕЛЬ (наглядно)
+   Каждый следующий вложенный блок — "внутри" предыдущего
+   ========================================================== */
+.model {
+    margin: 30px auto;
+    max-width: 460px;
+    text-align: center;
+
+    /* Показываем границы, чтобы было видно слои */
+    font-family: Consolas, monospace;
+    font-size: 14px;
+}
+
+/* Каждый слой — это div с текстом и рамкой */
+.model > div {
+    padding: 16px;
+    border: 2px dashed #b6bcc7;
+}
+
+.model__margin  { background-color: #ffe9c7; }  /* margin — оранжевый */
+.model__border  { background-color: #d7f0d0; }  /* border — зелёный */
+.model__padding { background-color: #cfe4ff; }  /* padding — голубой */
+.model__content { background-color: #ffffff; }  /* content — белый */
+
+
+/* ==========================================================
+   8. РЯД ИЗ ТРЁХ БЛОКОВ (flex)
+   ========================================================== */
+.row {
+    display: flex;              /* включаем flex-раскладку */
+    gap: var(--gap);           /* расстояние между блоками (без margin) */
+    margin: 25px 0;
+}
+
+.box {
+    flex: 1;                   /* каждый блок занимает равную долю свободного места */
+    padding: 30px 10px;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+
+    /* Плавное увеличение при наведении */
+    transition: transform .25s;
+}
+
+.box:hover {
+    transform: scale(1.05);    /* растянуть элемент на 5% */
+}
+
+/* Фон каждого блока — свой цвет */
+.box--red   { background-color: #e5484d; }
+.box--green { background-color: #2f9e44; }
+.box--blue  { background-color: #2f6fed; }
+
+.box--round {
+    flex: none;                /* не растягивать на всю ширину */
+    padding: 20px;
+    background-color: #333333;
+
+    /* Тень: смещениеX смещениеY размытие цвет */
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .25);
+}
+
+
+/* ==========================================================
+   9. КНОПКИ, ПОЛЯ, ССЫЛКИ
+   ========================================================== */
+
+/* Один класс .btn навешиваем и на <a>, и на <button>,
+   чтобы они выглядели одинаково. */
+.btn {
+    display: inline-block;    /* чтобы работали width и padding */
+    margin: 5px;
+    padding: 12px 22px;
+
+    /* Убираем рамку и системный фон, чтобы кнопка была полностью наша */
+    border: none;
+    background-color: var(--color-main);
+    color: #ffffff;
+
+    font-size: 15px;
+    font-family: inherit;     /* шрифт кнопки по умолчанию отличается — берём свой */
+    text-decoration: none;
+    border-radius: 6px;
+    cursor: pointer;          /* курсор-рука при наведении */
+
+    /* transition — что именно и за сколько времени меняется.
+       Пишут: transition: свойство .время эффект */
+    transition: background-color .2s, transform .2s;
+}
+
+.btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);  /* поднять на 2px */
+}
+
+/* :active — пока кнопка нажата (обычно делают чуть темнее) */
+.btn:active {
+    background-color: #163fae;
+}
+
+/* :focus — элемент в фокусе (важно для клавиатуры и доступности) */
+.btn:focus-visible {
+    outline: 3px solid #ffb020;
+    outline-offset: 2px;
+}
+
+/* Атрибут disabled в HTML → стилизуем сам,
+   потому что обычные :hover тут не сработают */
+.btn:disabled {
+    background-color: #c4c9d2;
+    cursor: not-allowed;
+}
+
+.btn--submit {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #2f9e44;
+}
+
+.btn--submit:hover {
+    background-color: #27833a;
+}
+
+/* Поле ввода */
+.input {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 15px 0;
+    padding: 12px 15px;
+
+    border: 1px solid #c4c9d2;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    background-color: #ffffff;
+    color: var(--color-text);
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.input:hover {
+    border-color: var(--color-main);
+}
+
+.input:focus {
+    /* Убираем стандартную рамку и рисуем свою */
+    outline: none;
+    border-color: var(--color-main);
+    box-shadow: 0 0 0 3px rgba(47, 111, 237, .2);
+}
+
+.hint {
+    font-size: 14px;
+    color: var(--color-muted);
+}
+
+.hint__text {
+    color: var(--color-main);
+    font-weight: bold;
+}
+
+
+/* ==========================================================
+   10. СПИСКИ И КОЛОНКИ
+   ========================================================== */
+
+/* Три колонки. cols — это flex-контейнер */
+.cols {
+    display: flex;
+    gap: var(--gap);
+    flex-wrap: wrap;          /* на узком экране колонки переедут вниз */
+}
+
+.cols > div {
+    flex: 1 1 200px;          /* min ширина 200px, дальше делят поровну */
+}
+
+.cols h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.list {
+    /* Отступ текста от маркера */
+    padding-left: 25px;
+}
+
+.list li {
+    margin-bottom: 6px;
+}
+
+.list--none {
+    list-style: none;
+    padding-left: 0;
+}
+
+
+/* ==========================================================
+   11. ТАБЛИЦА
+   ========================================================== */
+.table {
+    width: 100%;
+    margin-top: 15px;
+
+    /* Схлопывает соседние границы в одну линию */
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #d5d9e0;
+}
+
+.table th {
+    background-color: #e7ecf5;
+    font-weight: bold;
+}
+
+/* Чётные строки подсвечиваем: отступ 2 после каждой пары */
+.table tbody tr:nth-child(even) {
+    background-color: #fafbfc;
+}
+
+.table tbody tr:hover {
+    background-color: #eef3ff;
+}
+
+
+/* ==========================================================
+   12. ФОРМА
+   ========================================================== */
+.form {
+    display: flex;
+    flex-direction: column;    /* элементы один под другим */
+    gap: 8px;
+    max-width: 420px;
+}
+
+.form__label {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.form__field {
+    padding: 12px 14px;
+    border: 1px solid #c4c9d2;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: border-color .2s;
+}
+
+.form__field:focus {
+    outline: none;
+    border-color: var(--color-main);
+}
+
+.form__field--area {
+    resize: vertical;         /* можно тянуть только по высоте */
+    min-height: 90px;
+}
+
+/* Блок с чекбоксом: он сам кликабельный вместе с текстом */
+.form__check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.form__check input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-main);
+}
+
+
+/* ==========================================================
+   13. ПОДВАЛ
+   ========================================================== */
+.footer {
+    background-color: #22262e;
+    color: #ffffff;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 30px;
+}
+
+.footer__text {
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.footer__text--muted {
+    color: #9aa0aa;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================
+   14. АДАПТИВНОСТЬ (медиазапросы)
+   На узких экранах (телефон) уменьшаем отступы и размеры.
+   max-width: 700px = правило работает, когда экран уже 700px
+   ========================================================== */
+@media (max-width: 700px) {
+
+    .header__title {
+        font-size: 30px;
+    }
+
+    .main,
+    .nav {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .block {
+        padding: 18px;
+    }
+
+    /* Три блока складываются в столбик */
+    .row {
+        flex-direction: column;
+    }
+
+    .box--round {
+        width: 100%;
+    }
+
+    .nav__item + .nav__item {
+        border-left: none;
+    }
+}

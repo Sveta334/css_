@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <!-- viewport = чтобы на телефоне страница не «уезжала» вбок -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основы CSS · Простые элементы сайта</title>
+
+    <!-- Подключаем внешний файл стилей. Именно его и разбираем в style.css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==========================================================
+         1. ШАПКА САЙТА (header)
+         header — семантический тег. Ничего особенного не делает,
+         но помогает браузеру и поисковику понять структуру страницы.
+         ========================================================== -->
+    <header class="header">
+        <h1 class="header__title">Основы CSS</h1>
+        <p class="header__text">Простые элементы сайта и всё, что с ними можно сделать</p>
+    </header>
+
+    <!-- ==========================================================
+         2. НАВИГАЦИЯ (nav)
+         Внутри — список <ul>, пункты — ссылки <a>.
+         ========================================================== -->
+    <nav class="nav">
+        <ul class="nav__list">
+            <li class="nav__item"><a class="nav__link" href="#text">Текст</a></li>
+            <li class="nav__item"><a class="nav__link" href="#boxes">Блоки</a></li>
+            <li class="nav__item"><a class="nav__link" href="#buttons">Кнопки</a></li>
+            <li class="nav__item"><a class="nav__link" href="#list">Списки</a></li>
+            <li class="nav__item"><a class="nav__link" href="#table">Таблица</a></li>
+            <li class="nav__item"><a class="nav__link" href="#form">Форма</a></li>
+        </ul>
+    </nav>
+
+    <!-- main — основное содержимое страницы (одно на страницу) -->
+    <main class="main">
+
+        <!-- ========== 3. ТЕКСТ И АБЗАЦЫ ========== -->
+        <!-- id нужен, чтобы навигация к этой секции работала: href="#text" -->
+        <section class="block" id="text">
+            <h2 class="block__title">1. Текст и абзацы</h2>
+
+            <p>
+                Абзац — это тег <b>&lt;p&gt;</b>. Он по умолчанию имеет отступы сверху и снизу,
+                поэтому абзацы не слипаются друг с другом.
+            </p>
+
+            <p class="text-center">Текст по центру: <b>text-align: center</b></p>
+            <p class="text-right">Текст по правому краю: <b>text-align: right</b></p>
+            <p class="text-big">Увеличенный текст: <b>font-size: 24px</b></p>
+            <p class="text-upper">Верхний регистр: <b>text-transform: uppercase</b></p>
+            <p class="text-under">Подчёркнутый текст: <b>text-decoration: underline</b></p>
+        </section>
+
+        <!-- ========== 4. БЛОКИ И БЛОЧНАЯ МОДЕЛЬ ========== -->
+        <section class="block" id="boxes">
+            <h2 class="block__title">2. Блоки и блочная модель</h2>
+            <p>
+                У каждого блока есть <b>margin</b> (отступ снаружи), <b>border</b> (рамка),
+                <b>padding</b> (отступ внутри) и сам <b>content</b> (содержимое).
+                Это и есть «блочная модель» (box model).
+            </p>
+
+            <!-- Ниже — наглядная модель: вложенные div друг в друга -->
+            <div class="model">
+                <div class="model__margin">margin
+                    <div class="model__border">border
+                        <div class="model__padding">padding
+                            <div class="model__content">content</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Три блока в ряд. Это можно сделать по-разному, здесь — flex -->
+            <div class="row">
+                <div class="box box--red">Блок 1</div>
+                <div class="box box--green">Блок 2</div>
+                <div class="box box--blue">Блок 3</div>
+            </div>
+
+            <!-- Скруглённые углы + тень -->
+            <div class="box box--round">Скруглённые углы и тень</div>
+        </section>
+
+        <!-- ========== 5. КНОПКИ И ССЫЛКИ ========== -->
+        <section class="block" id="buttons">
+            <h2 class="block__title">3. Кнопки и состояния</h2>
+            <p>
+                Кнопка меняется при наведении — это псевдокласс <b>:hover</b>.
+                Нажатая — <b>:active</b>. В фокусе — <b>:focus</b>.
+            </p>
+
+            <!-- a.button — ссылка, оформленная как кнопка -->
+            <a class="btn" href="#text">Ссылка-кнопка</a>
+
+            <!-- Настоящая кнопка <button> -->
+            <button class="btn" type="button">Кнопка button</button>
+
+            <!-- Кнопка неактивна: атрибут disabled -->
+            <button class="btn" type="button" disabled>Неактивная кнопка</button>
+
+            <!-- Поле формы. placeholder — подсказка внутри, исчезает при вводе -->
+            <input class="input" type="text" placeholder="Поле для текста">
+
+            <p class="hint">Подсказка снизу: <span class="hint__text">это отдельный элемент span</span></p>
+        </section>
+
+        <!-- ========== 6. СПИСКИ ========== -->
+        <section class="block" id="list">
+            <h2 class="block__title">4. Списки</h2>
+
+            <div class="cols">
+                <!-- Обычный список с точками: <ul> -->
+                <div>
+                    <h3>Маркированный (по умолчанию)</h3>
+                    <ul class="list">
+                        <li>Первый пункт</li>
+                        <li>Второй пункт</li>
+                        <li>Третий пункт</li>
+                    </ul>
+                </div>
+
+                <!-- Список с нумерацией: <ol> -->
+                <div>
+                    <h3>Нумерованный</h3>
+                    <ol class="list">
+                        <li>Первый пункт</li>
+                        <li>Второй пункт</li>
+                        <li>Третий пункт</li>
+                    </ol>
+                </div>
+
+                <!-- Список без маркеров: CSS list-style: none -->
+                <div>
+                    <h3>Без маркеров</h3>
+                    <ul class="list list--none">
+                        <li>Пункт без точки</li>
+                        <li>Используется для меню</li>
+                        <li>Или для навигации</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 7. ТАБЛИЦА ========== -->
+        <section class="block" id="table">
+            <h2 class="block__title">5. Таблица</h2>
+            <p>Таблица — это строки <b>&lt;tr&gt;</b> и ячейки <b>&lt;td&gt;</b> / <b>&lt;th&gt;</b>.</p>
+
+            <table class="table">
+                <thead>
+                    <!-- th — ячейка-заголовок, td — обычная ячейка -->
+                    <tr>
+                        <th>Свойство</th>
+                        <th>Значение</th>
+                        <th>Что делает</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>color</td>
+                        <td>#333333</td>
+                        <td>Цвет текста</td>
+                    </tr>
+                    <tr>
+                        <td>background-color</td>
+                        <td>#f0f0f0</td>
+                        <td>Цвет фона</td>
+                    </tr>
+                    <tr>
+                        <td>padding</td>
+                        <td>16px</td>
+                        <td>Внутренний отступ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ========== 8. ФОРМА ========== -->
+        <section class="block" id="form">
+            <h2 class="block__title">6. Форма</h2>
+            <p>Поля ввода, флажок и кнопка отправки.</p>
+
+            <!-- action — куда отправлять, method — как. Здесь просто для примера -->
+            <form class="form" action="#" method="post">
+
+                <!-- label + input. label соединяется с полем через for и id -->
+                <label class="form__label" for="name">Имя</label>
+                <input class="form__field" id="name" type="text" placeholder="Введите имя">
+
+                <label class="form__label" for="email">Email</label>
+                <input class="form__field" id="email" type="email" placeholder="name@mail.ru">
+
+                <label class="form__label" for="message">Сообщение</label>
+                <textarea class="form__field form__field--area" id="message" rows="4" placeholder="Текст сообщения"></textarea>
+
+                <!-- Чекбокс: нажатый чекбокс получает класс checked через :checked -->
+                <label class="form__check">
+                    <input type="checkbox" checked>
+                    <span>Согласен с условиями</span>
+                </label>
+
+                <button class="btn btn--submit" type="submit">Отправить</button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- ==========================================================
+         9. ПОДВАЛ САЙТА (footer)
+         ========================================================== -->
+    <footer class="footer">
+        <p class="footer__text">© 2026 · Учебная страница по CSS</p>
+        <p class="footer__text footer__text--muted">Сделано для практики</p>
+    </footer>
+
+</body>
+</html>
